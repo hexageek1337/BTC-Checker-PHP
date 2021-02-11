@@ -1,5 +1,5 @@
 <?php
-define("VERSION", "2.0");
+define("VERSION", "3.0");
 /**
  * Indodax Check Realtime Virtual Money Currency
  * Powered by Denny Septian
@@ -7,7 +7,7 @@ define("VERSION", "2.0");
 class Indodax
 {
 	function __construct(){
-		# code...
+		$this->clearScreen();
 	}
 
 	private function clearScreen() {
@@ -19,108 +19,52 @@ class Indodax
 	}
 
 	private $typeVM;
+	private $arrOpt = array();
+	private $arrLabel = array();
 
-	private function optionVM()
-	{
+	private function optionVM(){
+		$this->arrOpt = array(
+			'btc' => 'Bitcoin',
+			'bch' => 'Bitcoin Cash',
+			'btg' => 'Bitcoin Gold',
+			'bcd' => 'Bitcoin Diamond',
+			'doge' => 'Dogecoin',
+			'eth' => 'Ethereum',
+			'etc' => 'Ethereum Classic',
+			'ltc' => 'Litecoin',
+			'nxt' => 'NXT',
+			'waves' => 'Waves',
+			'str' => 'Stellar Lumens',
+			'xrp' => 'Ripple',
+			'xzc' => 'ZCoin',
+			'ada' => 'Cardano',
+			'act' => 'Achain',
+			'ten' => 'Tokenomy',
+			'ignis' => 'Ignis',
+			'stq' => 'Storiqa',
+			'trx' => 'Tron',
+			'aave' => 'Aave',
+			'algo' => 'Algorand',
+			'atom' => 'Cosmos',
+			'eos' => 'EOS',
+		);
+		$this->arrLabel = array('btc','bch','btg','bcd','doge','eth','etc','ltc','nxt','waves','str','xrp','xzc','ada','act','ten','ignis','stq','trx','aave','algo','atom','eos');
+
 		echo "=------ Option Virtual Money ------=\n";
-		echo "[ ? ] 1. Bitcoin\n";
-		echo "[ ? ] 2. Bitcoin Cash\n";
-		echo "[ ? ] 3. Bitcoin Gold\n";
-		echo "[ ? ] 4. Bitcoin Diamond\n";
-		echo "[ ? ] 5. Ethereum\n";
-		echo "[ ? ] 6. Ethereum Classic\n";
-		echo "[ ? ] 7. Litecoin\n";
-		echo "[ ? ] 8. NXT\n";
-		echo "[ ? ] 9. Waves\n";
-		echo "[ ? ] 10. Stellar Lumens\n";
-		echo "[ ? ] 11. Ripple\n";
-		echo "[ ? ] 12. ZCoin\n";
-		echo "[ ? ] 13. Cardano\n";
-		echo "[ ? ] 14. Achain\n";
-		echo "[ ? ] 15. Tokenomy\n";
-		echo "[ ? ] 16. Ignis\n";
-		echo "[ ? ] 17. Storiqa\n";
-		echo "[ ? ] 18. Tron\n";
+		foreach ($this->arrLabel as $key => $value) {
+			$jum = $key+1;
+			echo "[ ? ] {$jum}. {$this->arrOpt[$value]}\n";
+		}
 		echo "> ";
 
-		$option = trim(fgets(STDIN));
-		switch ($option) {
-			case '1':
-				$this->typeVM = "btc";
+		$option = intval(trim(fgets(STDIN)));
+		foreach ($this->arrLabel as $keyL => $valueD) {
+			$jumData = $keyL+1;
+			
+			if ($option === $jumData) {
+				$this->typeVM = $valueD;
 				return $this->typeVM;
-				break;
-			case '2':
-				$this->typeVM = "bch";
-				return $this->typeVM;
-				break;
-			case '3':
-				$this->typeVM = "btg";
-				return $this->typeVM;
-				break;
-			case '4':
-				$this->typeVM = "bcd";
-				return $this->typeVM;
-				break;
-			case '5':
-				$this->typeVM = "eth";
-				return $this->typeVM;
-				break;
-			case '6':
-				$this->typeVM = "etc";
-				return $this->typeVM;
-				break;
-			case '7':
-				$this->typeVM = "ltc";
-				return $this->typeVM;
-				break;
-			case '8':
-				$this->typeVM = "nxt";
-				return $this->typeVM;
-				break;
-			case '9':
-				$this->typeVM = "waves";
-				return $this->typeVM;
-				break;
-			case '10':
-				$this->typeVM = "str";
-				return $this->typeVM;
-				break;
-			case '11':
-				$this->typeVM = "xrp";
-				return $this->typeVM;
-				break;
-			case '12':
-				$this->typeVM = "xzc";
-				return $this->typeVM;
-				break;
-			case '13':
-				$this->typeVM = "ada";
-				return $this->typeVM;
-				break;
-			case '14':
-				$this->typeVM = "act";
-				return $this->typeVM;
-				break;
-			case '15':
-				$this->typeVM = "ten";
-				return $this->typeVM;
-				break;
-			case '16':
-				$this->typeVM = "ignis";
-				return $this->typeVM;
-				break;
-			case '17':
-				$this->typeVM = "stq";
-				return $this->typeVM;
-				break;
-			case '18':
-				$this->typeVM = "trx";
-				return $this->typeVM;
-				break;
-			default:
-				$this->typeVM = "btc";
-				return $this->typeVM;
-				break;
+			}
 		}
 	}
 
@@ -134,19 +78,11 @@ class Indodax
 | $$  \ $$  | $$ | $$    $$         | $| $$     /$$__  $| $$     | $$_____/
 | $$$$$$$/  | $$ |  $$$$$$/         | $| $$    |  $$$$$$|  $$$$$$|  $$$$$$$
 |_______/   |__/  \______/          |__|__/     \_______/\_______/\_______/
-[ * ] Created by Denny Septian ( https://github.com/hexageek1337 )
+[ * ] Created by Denny Septian Panggabean (https://github.com/hexageek1337)
 [ * ] Version '.VERSION;
 		
 		// meneruskan hasil art
 		print_r($art);
-	}
-
-	public function usage($file)
-	{
-		echo "\tParameter Tidak Valid\n\n";
-		echo "Usage : php ".$file." [type]\n";
-		echo "Example : php ".$file." btc\n";
-		echo "Type : btc, bch, btg, eth, etc, ltc, nxt, waves, str, xrp, xzc";
 	}
 
 	private function curl($url = '', $postdata = '',$header = array()){
@@ -173,10 +109,8 @@ class Indodax
 	}
 
 	public function run(){
-		$this->clearScreen();
 		$this->banner();
-		echo "\n";
-		echo "\n";
+		echo "\n\n";
 		$this->optionVM();
 		echo "\n";
 		$url = "https://indodax.com/api/".$this->typeVM."_idr/ticker";
@@ -184,10 +118,11 @@ class Indodax
 		$vieWCOEK = $echo['ticker'];
 
 		// Print
-		echo "\033[32m[+]\033[0m Last Price Ripple : Rp. ".number_format($vieWCOEK['last'],2,",",".");
+		echo "\033[32m[+]\033[0m Last Price {$this->arrOpt[$this->typeVM]} : Rp. ".number_format($vieWCOEK['last'],2,",",".");
 		echo "\n";
-		echo "\033[32m[-]\033[0m High Price Ripple : Rp. ".number_format($vieWCOEK['high'],2,",",".");
+		echo "\033[32m[-]\033[0m High Price {$this->arrOpt[$this->typeVM]} : Rp. ".number_format($vieWCOEK['high'],2,",",".");
 		echo "\n";
-		echo "\033[32m[-]\033[0m Low Price Ripple : Rp. ".number_format($vieWCOEK['low'],2,",",".");
+		echo "\033[32m[-]\033[0m Low Price {$this->arrOpt[$this->typeVM]} : Rp. ".number_format($vieWCOEK['low'],2,",",".");
+		echo "\n";
 	}
 }
